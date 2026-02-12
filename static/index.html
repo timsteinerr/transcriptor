@@ -4,25 +4,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Transcriptor - Free Video Transcription</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Serif&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0f1117;
-      --surface: #1a1d27;
-      --surface2: #242836;
-      --border: #2e3345;
-      --text: #e4e6f0;
-      --text-dim: #8b8fa3;
-      --accent: #6c5ce7;
-      --accent-hover: #7f71ef;
-      --success: #00cec9;
-      --error: #e17055;
-      --radius: 12px;
+      --bg: #e8e4dc;
+      --surface: #f2efe8;
+      --border: #1a1a1a;
+      --border-light: rgba(26, 26, 26, 0.15);
+      --text: #1a1a1a;
+      --text-dim: #6b6b6b;
+      --accent: #1a1a1a;
+      --error: #c0392b;
+      --radius: 16px;
+      --font-serif: 'Instrument Serif', Georgia, serif;
+      --font-sans: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'DM Mono', 'SF Mono', monospace;
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: var(--font-sans);
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
@@ -31,40 +35,83 @@
       align-items: center;
     }
 
+    /* --- Header --- */
     header {
       width: 100%;
-      padding: 2rem 1rem 1rem;
-      text-align: center;
+      max-width: 800px;
+      padding: 3rem 1.5rem 1rem;
     }
 
     header h1 {
-      font-size: 2.2rem;
-      font-weight: 700;
-      letter-spacing: -0.5px;
+      font-family: var(--font-serif);
+      font-size: 3.5rem;
+      font-weight: 400;
+      letter-spacing: -1px;
+      line-height: 1;
     }
-
-    header h1 span { color: var(--accent); }
 
     header p {
+      font-family: var(--font-mono);
       color: var(--text-dim);
-      margin-top: 0.5rem;
-      font-size: 1.05rem;
+      margin-top: 0.75rem;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
+    /* --- Nav tabs (decorative) --- */
+    .nav-bar {
+      width: 100%;
+      max-width: 800px;
+      padding: 0 1.5rem;
+      display: flex;
+      gap: 0;
+      border-bottom: 1.5px solid var(--border);
+      margin-bottom: 1.5rem;
+    }
+
+    .nav-item {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 0.75rem 1.25rem;
+      color: var(--text-dim);
+      border-bottom: 2px solid transparent;
+      cursor: default;
+      white-space: nowrap;
+    }
+
+    .nav-item.active {
+      color: var(--text);
+      border-bottom-color: var(--border);
+    }
+
+    /* --- Main --- */
     main {
       width: 100%;
-      max-width: 720px;
-      padding: 1rem;
+      max-width: 800px;
+      padding: 0 1.5rem;
       flex: 1;
     }
 
-    /* --- Input area --- */
+    /* --- Input card --- */
     .input-card {
       background: var(--surface);
-      border: 1px solid var(--border);
+      border: 1.5px solid var(--border);
       border-radius: var(--radius);
-      padding: 1.5rem;
+      padding: 1.75rem;
       margin-bottom: 1.5rem;
+    }
+
+    .input-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-dim);
+      margin-bottom: 0.75rem;
+      display: block;
     }
 
     .url-row {
@@ -74,50 +121,66 @@
 
     .url-row input {
       flex: 1;
-      padding: 0.8rem 1rem;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: var(--surface2);
+      padding: 0.9rem 1rem;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      background: var(--bg);
       color: var(--text);
-      font-size: 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
       outline: none;
-      transition: border-color 0.2s;
+      transition: box-shadow 0.2s;
     }
 
-    .url-row input:focus { border-color: var(--accent); }
+    .url-row input:focus {
+      box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.1);
+    }
 
-    .url-row input::placeholder { color: var(--text-dim); }
+    .url-row input::placeholder {
+      color: var(--text-dim);
+      font-family: var(--font-mono);
+    }
 
     .btn {
-      padding: 0.8rem 1.6rem;
-      border: none;
-      border-radius: 8px;
+      padding: 0.9rem 2rem;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
       background: var(--accent);
-      color: #fff;
-      font-size: 1rem;
-      font-weight: 600;
+      color: var(--surface);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
       cursor: pointer;
-      transition: background 0.2s, transform 0.1s;
+      transition: background 0.15s, transform 0.1s;
       white-space: nowrap;
     }
 
-    .btn:hover { background: var(--accent-hover); }
+    .btn:hover { background: #333; }
     .btn:active { transform: scale(0.97); }
-    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn:disabled { opacity: 0.35; cursor: not-allowed; }
 
     .supported-sites {
       margin-top: 0.75rem;
-      font-size: 0.85rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
       color: var(--text-dim);
+    }
+
+    .supported-sites a {
+      color: var(--text);
+      text-decoration: underline;
+      text-underline-offset: 2px;
     }
 
     /* --- Status area --- */
     .status-area {
       display: none;
       background: var(--surface);
-      border: 1px solid var(--border);
+      border: 1.5px solid var(--border);
       border-radius: var(--radius);
-      padding: 1.5rem;
+      padding: 1.75rem;
       margin-bottom: 1.5rem;
     }
 
@@ -131,51 +194,60 @@
     }
 
     .spinner {
-      width: 22px;
-      height: 22px;
-      border: 3px solid var(--border);
-      border-top-color: var(--accent);
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--border-light);
+      border-top-color: var(--border);
       border-radius: 50%;
-      animation: spin 0.8s linear infinite;
+      animation: spin 0.7s linear infinite;
     }
 
     @keyframes spin { to { transform: rotate(360deg); } }
 
+    #statusLabel {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
     .progress-bar {
       width: 100%;
-      height: 6px;
-      background: var(--surface2);
-      border-radius: 3px;
+      height: 4px;
+      background: var(--border-light);
+      border-radius: 2px;
       overflow: hidden;
     }
 
     .progress-bar-fill {
       height: 100%;
-      background: var(--accent);
-      border-radius: 3px;
+      background: var(--border);
+      border-radius: 2px;
       transition: width 0.4s ease;
       width: 0%;
     }
 
     .status-text {
-      margin-top: 0.5rem;
-      font-size: 0.9rem;
+      margin-top: 0.6rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
       color: var(--text-dim);
     }
 
     .error-text {
       color: var(--error);
       margin-top: 0.5rem;
-      font-size: 0.9rem;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
     }
 
     /* --- Result area --- */
     .result-area {
       display: none;
       background: var(--surface);
-      border: 1px solid var(--border);
+      border: 1.5px solid var(--border);
       border-radius: var(--radius);
-      padding: 1.5rem;
+      padding: 1.75rem;
       margin-bottom: 1.5rem;
     }
 
@@ -185,14 +257,15 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1rem;
+      margin-bottom: 1.25rem;
       flex-wrap: wrap;
-      gap: 0.5rem;
+      gap: 0.75rem;
     }
 
     .result-header h2 {
-      font-size: 1.2rem;
-      font-weight: 600;
+      font-family: var(--font-serif);
+      font-size: 1.75rem;
+      font-weight: 400;
     }
 
     .result-actions {
@@ -202,27 +275,33 @@
 
     .btn-sm {
       padding: 0.45rem 0.9rem;
-      font-size: 0.85rem;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      background: var(--surface2);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      background: transparent;
       color: var(--text);
       cursor: pointer;
-      transition: background 0.2s;
+      transition: background 0.15s;
     }
 
-    .btn-sm:hover { background: var(--border); }
+    .btn-sm:hover { background: var(--bg); }
 
     .tab-row {
       display: flex;
       gap: 0;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1.5px solid var(--border-light);
       margin-bottom: 1rem;
     }
 
     .tab {
-      padding: 0.5rem 1rem;
-      font-size: 0.9rem;
+      padding: 0.6rem 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
       color: var(--text-dim);
       border: none;
       background: none;
@@ -232,78 +311,106 @@
     }
 
     .tab.active {
-      color: var(--accent);
-      border-bottom-color: var(--accent);
+      color: var(--text);
+      border-bottom-color: var(--border);
     }
 
     .transcript-box {
-      background: var(--surface2);
-      border-radius: 8px;
-      padding: 1rem 1.2rem;
+      background: var(--bg);
+      border: 1px solid var(--border-light);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
       max-height: 500px;
       overflow-y: auto;
-      font-size: 0.95rem;
-      line-height: 1.7;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      line-height: 1.8;
       white-space: pre-wrap;
       word-wrap: break-word;
     }
 
-    .transcript-box::-webkit-scrollbar { width: 6px; }
+    .transcript-box::-webkit-scrollbar { width: 5px; }
     .transcript-box::-webkit-scrollbar-track { background: transparent; }
-    .transcript-box::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    .transcript-box::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 3px; }
 
-    .segment { margin-bottom: 0.6rem; }
+    .segment { margin-bottom: 0.5rem; }
     .segment-time {
-      color: var(--accent);
-      font-size: 0.8rem;
-      font-weight: 600;
-      margin-right: 0.5rem;
+      font-family: var(--font-mono);
+      color: var(--text-dim);
+      font-size: 0.75rem;
+      font-weight: 500;
+      margin-right: 0.75rem;
       cursor: default;
     }
 
     .language-badge {
       display: inline-block;
-      padding: 0.2rem 0.6rem;
-      font-size: 0.75rem;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 4px;
+      padding: 0.25rem 0.65rem;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      background: transparent;
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      color: var(--text);
+    }
+
+    /* --- Footer --- */
+    footer {
+      width: 100%;
+      max-width: 800px;
+      padding: 2.5rem 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
       color: var(--text-dim);
       text-transform: uppercase;
-    }
-
-    footer {
-      padding: 2rem 1rem;
+      letter-spacing: 0.5px;
       text-align: center;
-      font-size: 0.82rem;
-      color: var(--text-dim);
+      border-top: 1px solid var(--border-light);
+      margin-top: 2rem;
     }
 
-    footer a { color: var(--accent); text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
+    footer a {
+      color: var(--text);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
 
     @media (max-width: 600px) {
       .url-row { flex-direction: column; }
-      header h1 { font-size: 1.6rem; }
+      header h1 { font-size: 2.5rem; }
+      .nav-bar { overflow-x: auto; }
+      .nav-item { padding: 0.6rem 0.8rem; font-size: 0.7rem; }
     }
   </style>
 </head>
 <body>
 
 <header>
-  <h1>Transcript<span>or</span></h1>
-  <p>Free video transcription. Paste a URL, get the script.</p>
+  <h1>Transcriptor</h1>
+  <p>Paste a link. Get the script. Free forever.</p>
 </header>
+
+<nav class="nav-bar">
+  <div class="nav-item active">Transcribe</div>
+  <div class="nav-item">YouTube</div>
+  <div class="nav-item">TikTok</div>
+  <div class="nav-item">Vimeo</div>
+  <div class="nav-item">Twitter</div>
+  <div class="nav-item">1000+ Sites</div>
+</nav>
 
 <main>
   <!-- Input -->
   <div class="input-card">
+    <label class="input-label">Video URL</label>
     <div class="url-row">
-      <input type="url" id="videoUrl" placeholder="Paste a video URL (YouTube, Vimeo, Twitter, etc.)" autocomplete="off">
+      <input type="url" id="videoUrl" placeholder="https://youtube.com/watch?v=..." autocomplete="off">
       <button class="btn" id="transcribeBtn" onclick="startTranscription()">Transcribe</button>
     </div>
     <div class="supported-sites">
-      Works with YouTube, Vimeo, Twitter/X, Reddit, TikTok, Instagram, and <a href="https://github.com/yt-dlp/yt-dlp/blob/master/supportedsites.md" target="_blank" rel="noopener" style="color:var(--accent)">1000+ more sites</a>.
+      Works with <a href="https://github.com/yt-dlp/yt-dlp/blob/master/supportedsites.md" target="_blank" rel="noopener">1,000+ supported sites</a> &mdash; any video with audio.
     </div>
   </div>
 
@@ -329,8 +436,8 @@
       </div>
       <div class="result-actions">
         <button class="btn-sm" onclick="copyTranscript()">Copy</button>
-        <button class="btn-sm" onclick="downloadTranscript('txt')">Download .txt</button>
-        <button class="btn-sm" onclick="downloadTranscript('srt')">Download .srt</button>
+        <button class="btn-sm" onclick="downloadTranscript('txt')">.txt</button>
+        <button class="btn-sm" onclick="downloadTranscript('srt')">.srt</button>
       </div>
     </div>
     <div class="tab-row">
@@ -343,7 +450,7 @@
 
 <footer>
   Powered by <a href="https://github.com/openai/whisper" target="_blank" rel="noopener">OpenAI Whisper</a> &amp;
-  <a href="https://github.com/yt-dlp/yt-dlp" target="_blank" rel="noopener">yt-dlp</a>. 100% free. No sign-up required.
+  <a href="https://github.com/yt-dlp/yt-dlp" target="_blank" rel="noopener">yt-dlp</a> &mdash; 100% free &mdash; no sign-up required
 </footer>
 
 <script>
@@ -358,7 +465,6 @@ function startTranscription() {
   const url = $("videoUrl").value.trim();
   if (!url) { $("videoUrl").focus(); return; }
 
-  // Reset UI
   $("statusArea").classList.add("visible");
   $("resultArea").classList.remove("visible");
   $("errorText").textContent = "";
@@ -373,10 +479,7 @@ function startTranscription() {
   })
     .then(r => r.json())
     .then(data => {
-      if (data.error) {
-        showError(data.error);
-        return;
-      }
+      if (data.error) { showError(data.error); return; }
       currentJob = data.job_id;
       pollStatus();
     })
@@ -389,18 +492,14 @@ function pollStatus() {
   fetch(`/api/status/${currentJob}`)
     .then(r => r.json())
     .then(job => {
-      if (job.error && job.status === "error") {
-        showError(job.error);
-        return;
-      }
+      if (job.error && job.status === "error") { showError(job.error); return; }
 
       const labels = {
         queued: "Queued...",
         downloading: "Downloading video...",
-        transcribing: "Transcribing audio with AI...",
+        transcribing: "Transcribing audio...",
         done: "Done!",
       };
-
       const details = {
         queued: "Waiting to start",
         downloading: "Fetching and extracting audio from the video",
@@ -415,17 +514,13 @@ function pollStatus() {
         transcriptData.segments = job.segments || [];
         transcriptData.language = job.language || "";
         showResult();
-        // Clean up server-side
         fetch(`/api/cleanup/${currentJob}`, { method: "DELETE" }).catch(() => {});
         currentJob = null;
         return;
       }
-
       pollTimer = setTimeout(pollStatus, 1500);
     })
-    .catch(() => {
-      pollTimer = setTimeout(pollStatus, 3000);
-    });
+    .catch(() => { pollTimer = setTimeout(pollStatus, 3000); });
 }
 
 function setStatus(label, progress, detail) {
@@ -450,12 +545,11 @@ function showResult() {
   $("transcribeBtn").disabled = false;
 
   if (transcriptData.language) {
-    $("langBadge").textContent = "Language: " + transcriptData.language;
+    $("langBadge").textContent = transcriptData.language;
     $("langBadge").style.display = "inline-block";
   } else {
     $("langBadge").style.display = "none";
   }
-
   renderTranscript();
 }
 
@@ -468,7 +562,6 @@ function switchTab(tab, el) {
 
 function renderTranscript() {
   const box = $("transcriptBox");
-
   if (activeTab === "plain") {
     box.textContent = transcriptData.plain;
   } else {
@@ -507,7 +600,6 @@ function copyTranscript() {
 
 function downloadTranscript(format) {
   let content, filename, mime;
-
   if (format === "srt") {
     content = transcriptData.segments.map((s, i) => {
       return `${i + 1}\n${formatSrtTime(s.start)} --> ${formatSrtTime(s.end)}\n${s.text}\n`;
@@ -519,7 +611,6 @@ function downloadTranscript(format) {
     filename = "transcript.txt";
     mime = "text/plain";
   }
-
   const blob = new Blob([content], { type: mime });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
@@ -536,7 +627,6 @@ function formatSrtTime(seconds) {
   return `${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")},${String(ms).padStart(3,"0")}`;
 }
 
-// Allow pressing Enter to submit
 $("videoUrl").addEventListener("keydown", e => {
   if (e.key === "Enter") startTranscription();
 });

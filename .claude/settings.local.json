@@ -4,7 +4,9 @@
       "Bash(chmod:*)",
       "Bash(command -v:*)",
       "Bash(/opt/homebrew/bin/python3.12:*)",
-      "Bash(gh auth status:*)"
+      "Bash(gh auth status:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ]
   }
 }
