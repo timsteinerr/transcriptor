@@ -53,7 +53,7 @@ def transcribe_worker(job_id, video_url):
                 "--audio-format", "mp3",
                 "--audio-quality", "5",
                 "--output", os.path.join(job_dir, "%(title)s.%(ext)s"),
-                "--postprocessor-args", "-ac 1 -ar 16000",
+                "--postprocessor-args", "ffmpeg:-ac 1 -ar 16000",
                 video_url,
             ],
             capture_output=True,
