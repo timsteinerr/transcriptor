@@ -49,6 +49,7 @@ def transcribe_worker(job_id, video_url):
             [
                 YTDLP_BIN,
                 "--no-playlist",
+                "--js-runtimes", "nodejs",
                 "--extract-audio",
                 "--audio-format", "mp3",
                 "--audio-quality", "5",
